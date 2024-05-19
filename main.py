@@ -1,3 +1,4 @@
+'Номер посылки 114354556'
 import string
 import sys
 
@@ -27,16 +28,17 @@ class Stack:
 
 def decode_str(encoded_str):
     stack = Stack()
-    current_num = 0
+    current_num = ''
     current_str = ''
     numbers = set(string.digits)
     for char in encoded_str:
         if char in numbers:
-            current_num = int(char)
+            current_num += char
         elif char == '[':
+            current_num = int(current_num)
             stack.push(current_num)
             stack.push(current_str)
-            current_num = 0
+            current_num = ''
             current_str = ''
         elif char == ']':
             prev_str = stack.pop()
