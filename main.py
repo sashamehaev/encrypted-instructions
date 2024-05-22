@@ -26,7 +26,8 @@ class Stack:
         return len(self.__items)
 
 
-def decode_str(encoded_str):
+def decode_str(encoded_str: str) -> str:
+    """Функция, которая расшифровывает сообщения"""
     stack = Stack()
     current_num = ''
     current_str = ''
@@ -35,14 +36,11 @@ def decode_str(encoded_str):
         if char in numbers:
             current_num += char
         elif char == '[':
-            current_num = int(current_num)
-            stack.push(current_num)
-            stack.push(current_str)
+            stack.push((int(current_num), current_str))
             current_num = ''
             current_str = ''
         elif char == ']':
-            prev_str = stack.pop()
-            prev_num = stack.pop()
+            prev_num, prev_str = stack.pop()
             current_str = prev_str + current_str * prev_num
         else:
             current_str += char
